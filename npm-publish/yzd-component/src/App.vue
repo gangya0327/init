@@ -3,7 +3,7 @@
     <img alt="Vue logo" src="./assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
     <el-button @click="openDialog" type="primary">打开弹框</el-button>
-    <custom-dialog :dialogVisible.sync="isShow"></custom-dialog>
+    <custom-dialog :dialogVisible.sync="isShow" @updateDialogVisible='closeDialog'></custom-dialog>
   </div>
 </template>
 
@@ -26,9 +26,10 @@ export default {
     openDialog() {
       this.isShow = true
     },
-    // closeDialog() {
-    //   this.isShow = false
-    // },
+    closeDialog(flag) {
+      console.log('flag', flag)
+      this.isShow = false
+    },
   },
 }
 </script>

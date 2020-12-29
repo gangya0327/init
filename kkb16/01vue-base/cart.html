@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Document</title>
+    <style>
+      .active {
+        background-color: rgb(235, 132, 132);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      hello {{message}}
+      <h2 v-bind="title">{{title}}</h2>
+      <div v-for="c in courses" :key="c" :class="{active: selectedCourse===c?'active':''}" @click="selectedCourse=c">
+        {{c}}
+      </div>
+      <input type="text" v-model="course" v-on:keydown.enter="addCourse" />{{course}}
+    </div>
+
+    <script>
+      const app = new Vue({
+        el: '#app',
+        data() {
+          return {
+            message: 'vuejs',
+            title: '开课吧',
+            courses: ['web', 'javascript', 'html5'],
+            course: '',
+            selectedCourse: '',
+          }
+        },
+        methods: {
+          addCourse() {
+            this.courses.push(this.course)
+            this.course = ''
+          },
+        },
+      })
+      setTimeout(() => {
+        app.message = 'kkb'
+      }, 2000)
+    </script>
+  </body>
+</html>

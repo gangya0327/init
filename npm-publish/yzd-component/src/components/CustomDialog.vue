@@ -9,8 +9,8 @@
     >
       <span>这是我封装的组件</span>
       <span class="dialog-footer" slot="footer">
-        <el-button @click="dialogVisible=false">取消</el-button>
-        <el-button @click="dialogVisible=false" type="primary">确定</el-button>
+        <el-button @click="closeDialog">取消</el-button>
+        <el-button @click="closeDialog" type="primary">确定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -27,7 +27,7 @@ export default {
   props: ['dialogVisible'],
   methods: {
     closeDialog() {
-      this.$emit('update:dialogVisible', false)
+      this.$emit('updateDialogVisible', false)
     },
   },
 }
