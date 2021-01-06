@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/velocity/2.0.6/velocity.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <!-- <script src="./plugins/heading.js"></script> -->
     <title>Document</title>
     <style>
       .active {
@@ -55,46 +55,31 @@
       <!-- 批量更新商品价格 -->
       <p><input type="text" v-model.number="price" /> <button @click="batchUpdate">更改价格</button></p>
 
-      <!-- 使用render方法实现heading组件 -->
-      <heading level="2" :title="title">{{title}}</heading>
-
       <!-- toolbar -->
-      <div class="toolbar" v-permission="'admin'">
+      <div class="toolbar">
         <button @click="$bus.$emit('message-close')">清空提示框</button>
       </div>
     </div>
 
     <script>
-      import myPlugin from './plugin/heading'
-      console.log('myPlugin', myPlugin)
-
-      const helloMixin = {
-        created() {
-          this.hello()
-        },
-        methods: {
-          hello() {
-            console.log('say hello')
-          },
-        },
-      }
       Vue.prototype.$bus = new Vue()
       // 弹窗组件
       Vue.component('message', {
         // props: ['show'],
-        mixins: [helloMixin],
         data() {
           return {
             show: false,
           }
         },
         template: `
-        <div class='message-box' v-if='show'>
-          <!-- 具名插槽 -->
-          <slot name='title' title='来子message的标题'/>
-          <slot/>
-          <span class='message-box-close' @click='toggle'>×</span>
-        </div>
+        <transition name='fade' @before-enter='beforeEnter' @enter='enter' @before-leave='beforeLeave' @leave='leave'>
+          <div class='message-box' v-if='show'>
+            <!-- 具名插槽 -->
+            <slot name='title' title='来子message的标题'/>
+            <slot/>
+            <span class='message-box-close' @click='toggle'>×</span>
+          </div>
+        </transition>
         `,
         mounted() {
           this.$bus.$on('message-close', () => {
@@ -107,6 +92,30 @@
           toggle() {
             this.show = !this.show
           },
+          beforeEnter(el) {
+            // 动画初始状态
+            el.style.opacity = 0
+          },
+          enter(el, done) {
+            // // 触发回流激活动画
+            // document.body.offsetHeight
+            // // 动画结束状态
+            // el.style.opacity = 1
+            // // 监听动画结束事件，并执行done
+            // el.addEventListener('transition', done)
+            Velocity(el, { opacity: 1 }, { duration: 1500, complete: done})
+          },
+          beforeLeave(el) {
+            // 动画初始状态
+            el.style.opacity = 1
+          },
+          leave(el, done) {
+            // // 触发回流激活动画
+            // document.body.offsetHeight
+            // // 动画结束状态
+            // el.style.opacity = 0
+            Velocity(el, { opacity: 0 }, { duration: 1500, complete: done})
+          },
         },
       })
       // 课程新增组件
@@ -114,7 +123,7 @@
         props: ['value'],
         template: `
         <div>
-          <input type="text" ref='input' v-focus :value="value" @input="onInput" v-on:keydown.enter="addCourse" />
+          <input type="text" ref='input' :value="value" @input="onInput" v-on:keydown.enter="addCourse" />
           <button @click="addCourse">新增</button>
         </div>
         `,
@@ -127,28 +136,9 @@
           },
         },
         mounted() {
-          // this.$refs.input.focus()
+          this.$refs.input.focus()
         },
       })
-
-      Vue.directive('focus', {
-        inserted(el) {
-          el.focus()
-        },
-      })
-
-      // 模拟角色
-      const role = 'admin'
-      Vue.directive('permission', {
-        inserted(el, binding) {
-          console.log(binding)
-          // 若指定用户角色和当前用户角色不匹配则删除当前指定绑定的元素
-          if (role !== binding.value) {
-            el.parentElement.removeChild(el)
-          }
-        },
-      })
-
       // 课程列表组件
       Vue.component('course-list', {
         props: {
@@ -162,11 +152,6 @@
             selectedCourse: '',
           }
         },
-        filters: {
-          currency(value, symbol = '￥') {
-            return symbol + ' ' + value
-          },
-        },
         template: `
         <div>
           <div v-if="courses.length===0">
@@ -174,7 +159,7 @@
           </div>
           <div v-else>
             <div v-for="c in courses" :key="c.name" :class="{active: selectedCourse===c?'active':''}"           @click="selectedCourse=c">
-              {{c.name}} - {{c.price | currency('£')}}
+              {{c.name}} - $ {{c.price}}
             </div>
           </div>
         </div>
@@ -229,10 +214,10 @@
               this.courses.push(this.course)
               this.course = ''
               // this.show = true
-              this.refs.msgSuccess.toggle()
+              this.$refs.msgSuccess.toggle()
             } else {
               // this.showWarning = true
-              this.refs.msgWarning.toggle()
+              this.$refs.msgWarning.toggle()
             }
           },
           batchUpdate() {
