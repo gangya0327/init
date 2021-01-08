@@ -1,11 +1,21 @@
 <template>
   <div>
     <div v-if="courses.length===0">暂无课程</div>
-    <div v-else>
+    <div :class="['course-list', $style.red]" v-else>
       <div
-        :class="{active: selectedCourse===c?'active':''}"
-        :key="c.name"
+        :class="{[$style.active]: selectedCourse===c}"
+        :key="c.name+1"
         @click="selectedCourse=c"
+        v-for="c in courses"
+      >
+        <router-link :to="`/course/${c.name}`">{{c.name}} - {{c.price | currency('£')}}</router-link>|
+        <router-link :to="`/admin/course/${c.name}`">{{c.name}} - {{c.price | currency('£')}}</router-link>
+      </div>
+      <hr />
+      <div
+        :class="{[$style.active]: selectedCourse===c}"
+        :key="c.name+2"
+        @click="onClick(c)"
         v-for="c in courses"
       >{{c.name}} - {{c.price | currency('£')}}</div>
     </div>
@@ -32,8 +42,21 @@ export default {
       return symbol + ' ' + value
     },
   },
+  methods: {
+    onClick(c) {
+      this.selectedCourse = c
+      // this.$router.push(`/admin/course/${c.name}`)
+      this.$router.push({ name: 'detail', params: { name: c.name } })
+    },
+  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style module>
+.active {
+  background-color: #ddd;
+}
+.red {
+  color: red;
+}
 </style>

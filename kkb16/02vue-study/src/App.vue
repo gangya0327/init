@@ -1,42 +1,15 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <course-list :courses="courses"></course-list>
+    <div id="nav">
+      <router-link to="/">首页</router-link>|
+      <router-link to="/admin">管理</router-link>
+    </div>
+    <!-- 路由出口 -->
+    <keep-alive include="admin" max="10">
+      <router-view />
+    </keep-alive>
   </div>
 </template>
-
-<script>
-import CourseList from './components/CourseList'
-import { getCourses } from './api/course'
-
-export default {
-  name: 'App',
-  components: {
-    CourseList,
-  },
-  data() {
-    return {
-      courses: [],
-      price: 12.4,
-    }
-  },
-  async created() {
-    const courses = await getCourses()
-    this.courses = courses
-    // 批量更新商品价格
-    this.batchUpdate()
-  },
-  methods: {
-    batchUpdate() {
-      this.courses.map((item) => {
-        // item.price = this.price
-        // this.$set(item, 'price', this.price)
-        this.$set(item, 'price', this.price)
-      })
-    },
-  },
-}
-</script>
 
 <style>
 #app {
@@ -45,6 +18,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

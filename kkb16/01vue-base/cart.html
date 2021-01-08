@@ -65,7 +65,7 @@
     </div>
 
     <script>
-      import myPlugin from './plugin/heading'
+      import myPlugin from './plugins/heading'
       console.log('myPlugin', myPlugin)
 
       const helloMixin = {
@@ -79,6 +79,7 @@
         },
       }
       Vue.prototype.$bus = new Vue()
+
       // 弹窗组件
       Vue.component('message', {
         // props: ['show'],
@@ -109,6 +110,7 @@
           },
         },
       })
+
       // 课程新增组件
       Vue.component('course-add', {
         props: ['value'],
