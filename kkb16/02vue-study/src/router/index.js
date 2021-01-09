@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import store from '../store'
+console.log('store', store.state)
 
 Vue.use(VueRouter)
 
@@ -42,7 +44,7 @@ router.beforeEach((to, from, next) => {
   // } else {
   //   next()
   // }
-  if (window.isLogin) {
+  if (store.state.user.isLogin) {
     // 已经登录
     if (to.path === '/login') {
       next('/')
