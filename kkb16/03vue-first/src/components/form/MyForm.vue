@@ -21,7 +21,7 @@ import ElementForm from './ElementForm'
 import KInput from './KInput'
 import KFormItem from './KFormItem'
 import KForm from './KForm'
-import Notice from '@/components/notice/Notice'
+// import Notice from '@/components/notice/Notice'
 export default {
   components: {
     ElementForm,
@@ -56,7 +56,12 @@ export default {
       this.$refs['loginForm'].validate((valid) => {
         if (valid) {
           console.log('submit')
-          const notice = this.$create(Notice, {
+          // const notice = this.$create(Notice, {
+          //   title: '提示',
+          //   message: '登录成功',
+          //   duration: 2000,
+          // })
+          const notice = this.$notice({
             title: '提示',
             message: '登录成功',
             duration: 2000,
