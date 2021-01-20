@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{counter}}</p>
+      <p k-text="counter"></p>
+      <p k-html="desc"></p>
+      <p>{{number}}</p>
+    </div>
+
+    <script src="./24-kvue.js"></script>
+    <script src="./25-compile.js"></script>
+    <script>
+      const app = new KVue({
+        el: '#app',
+        data: {
+          counter: 0,
+          desc: '<span style="color: red">kvue</span>',
+          number: 99,
+        },
+      })
+      setInterval(() => {
+        app.counter++
+        app.number--
+      }, 3000)
+    </script>
+  </body>
+</html>
