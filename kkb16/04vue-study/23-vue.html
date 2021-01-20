@@ -11,6 +11,8 @@
       <p k-text="counter"></p>
       <p k-html="desc"></p>
       <p>{{number}}</p>
+      <p @click="onClick">{{arr}}</p>
+      <input type="text" k-model="desc" />
     </div>
 
     <script src="./24-kvue.js"></script>
@@ -22,11 +24,18 @@
           counter: 0,
           desc: '<span style="color: red">kvue</span>',
           number: 99,
+          arr: [7, 8],
+        },
+        methods: {
+          onClick() {
+            console.log('click me')
+          },
         },
       })
       setInterval(() => {
         app.counter++
         app.number--
+        app.arr.push(9)
       }, 3000)
     </script>
   </body>

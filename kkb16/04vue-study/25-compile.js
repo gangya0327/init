@@ -40,10 +40,21 @@ class Compile {
         const dir = attrName.substring(2)
         this[dir] && this[dir](node, exp)
       }
+      if (this.isEvent(attrName)) {
+        const dir = attrName.substring(1)
+        this.eventHandler(node, exp, dir)
+      }
     })
   }
   isDirective(attr) {
     return attr.indexOf('k-') === 0
+  }
+  isEvent(attr) {
+    return attr.indexOf('@') === 0
+  }
+  eventHandler(node, exp, dir) {
+    const fn = this.$vm.$options.methods && this.$vm.$options.methods[exp]
+    node.addEventListener(dir, fn)
   }
   update(node, exp, dir) {
     // 初始化
@@ -67,6 +78,16 @@ class Compile {
   }
   htmlUpdater(node, value) {
     node.innerHTML = value
+  }
+  // k-model='xxx'
+  model(node, exp) {
+    this.update(node, exp, 'model')
+    node.addEventListener('input', e => {
+      this.$vm[exp] = e.target.value
+    })
+  }
+  modelUpdater(node, value) {
+    node.value = value
   }
 }
 

@@ -1,3 +1,12 @@
+const orginalProto = Array.prototype
+const arrayProto = Object.create(orginalProto)
+Array.from(['push', 'pop', 'shift', 'unshift', 'splice', 'reverse', 'sort']).forEach(method => {
+  arrayProto[method] = function() {
+    orginalProto[method].apply(this, arguments)
+    console.log('数组执行', method, '操作')
+  }
+})
+
 function defineReactive(obj, key, val) {
   observer(val)
   // 一个key对应一个Dep
@@ -23,6 +32,14 @@ function defineReactive(obj, key, val) {
 function observer(obj) {
   if (typeof obj !== 'object' || obj === null) {
     return
+  }
+  if (Array.isArray(obj)) {
+    // 覆盖原型，替换7个变更操作
+    obj.__proto__ = arrayProto
+    // 对数组内部元素执行响应化
+    for (let i = 0; i < obj.length; i++) {
+      observer(obj[i])
+    }
   }
   new Observer(obj)
 }
