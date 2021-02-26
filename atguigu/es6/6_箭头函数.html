@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1. this是静态，始终指向函数声明时所在作用域下的this
+      // 2. 不能作为构造函数实例化对象
+      let Person = (name, age) => {
+        this.name = name
+        this.age = age
+      }
+      let me = new Person('peter', 19)
+      console.log(me)
+      // 3. 不能使用agruments变量
+      let fn = () => {
+        console.log(arguments)
+      }
+      fn(1, 2, 3)
+      // 4. 简写
+    </script>
+  </body>
+</html>
