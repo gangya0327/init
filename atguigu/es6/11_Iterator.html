@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 原生具备Iterator接口的数据：Array，Arguments，Map，TypedArray，String，Set，NodeList
+      const alphabet = ['a', 'b', 'c', 'd']
+      console.log(alphabet)
+      for (let v of alphabet) {
+        console.log(v)
+      }
+      // 遍历原理：next()指向，返回value值和done状态
+      let iterator = alphabet[Symbol.iterator]()
+      console.log(iterator)
+      console.log(iterator.next())
+      console.log(iterator.next())
+      console.log(iterator.next())
+      console.log(iterator.next())
+      console.log(iterator.next())
+      // 例子：自定义遍历器
+      const banji = {
+        name: 'banji',
+        students: ['peter', 'jack', 'raven', 'mark'],
+        [Symbol.iterator]() {
+          // 索引
+          let index = 0
+          let _this = this
+          return {
+            next: function () {
+              if (index < _this.students.length) {
+                const result = { value: _this.students[index], done: false }
+                index++
+                return result
+              } else {
+                return { value: undefined, done: true }
+              }
+            },
+          }
+        },
+      }
+      for (let v of banji) {
+        console.log(v)
+      }
+    </script>
+  </body>
+</html>

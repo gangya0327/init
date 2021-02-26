@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Symbol
+      // 1. 唯一性，用来解决命名冲突
+      let s = Symbol()
+      let s1 = Symbol('s1')
+      let s2 = Symbol('s1')
+      console.log(s)
+      console.log(s1)
+      console.log(s1 === s2)
+      // 2. for创建，可以相等
+      let s4 = Symbol.for('s4')
+      let s5 = Symbol.for('s4')
+      console.log(s4 === s5)
+      // 例子1
+      const game = {
+        name: '俄罗斯方块',
+        up: function () {
+          console.log('减速')
+        },
+        down: function () {
+          console.log('加速')
+        },
+      }
+      const methods = {
+        up: Symbol(),
+        down: Symbol(),
+      }
+      game[methods.up] = function () {
+        console.log('向上走')
+      }
+      game[methods.down] = function () {
+        console.log('向下走')
+      }
+      console.log(game)
+      game[methods.up]()
+      // 例子2
+      const game2 = {
+        name: '狼人杀',
+        [Symbol.for('say')]: function () {
+          console.log('发言')
+        },
+        [Symbol('kill')]: function () {
+          console.log('杀人')
+        },
+      }
+      console.log(game2)
+      game2[Symbol.for('say')]()
+    </script>
+  </body>
+</html>

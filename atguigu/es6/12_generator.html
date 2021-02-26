@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 生成器
+      // 异步编程：文件操作，网络操作，数据库操作
+      // yield 代码分割
+      function* gen(args) {
+        console.log('hello generator', args)
+        let one = yield 'gen1'
+        console.log('hello gen1: ', one)
+        let two = yield 'gen2'
+        console.log('hello gen2: ', two)
+        let three = yield 'gen3'
+        console.log('hello gen3: ', three)
+      }
+      let iterator = gen('zzz')
+      console.log(iterator)
+      console.log(iterator.next('AAA')) // 第一次进入遍历，不传参数，传入的gen内的参数
+      console.log(iterator.next('BBB'))
+      console.log(iterator.next('CCC'))
+      console.log(iterator.next('DDD'))
+      // 实例场景：1s后控制台输出111，2s后输出222，3s后输出333
+      function one() {
+        setTimeout(() => {
+          console.log(111)
+          example.next()
+        }, 1000)
+      }
+      function two() {
+        setTimeout(() => {
+          console.log(222)
+          example.next()
+        }, 2000)
+      }
+      function three() {
+        setTimeout(() => {
+          console.log(333)
+          example.next()
+        }, 3000)
+      }
+      function* gen1() {
+        yield one()
+        yield two()
+        yield three()
+      }
+      let example = gen1()
+      example.next()
+    </script>
+  </body>
+</html>
