@@ -1,0 +1,14 @@
+{
+  "name": "vue-project",
+  "version": "1.0.0",
+  "description": "吃透 Vue 项目开发实践｜16个方面深入 Vue 开发体系",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peter Raven",
+  "license": "ISC",
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0"
+  }
+}
