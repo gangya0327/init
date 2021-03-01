@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 声明
+      let s1 = new Set()
+      console.log(s1, typeof s1)
+      let s2 = new Set(['a', 'b', 'c', 'b', 'd'])
+      console.log(s2)
+
+      // 个数
+      console.log(s2.size)
+
+      // 添加
+      s2.add('e')
+      console.log(s2)
+
+      // 删除
+      s2.delete('a')
+      console.log(s2)
+
+      // 检测是否存在
+      console.log(s2.has('a'))
+      console.log(s2.has('b'))
+
+      // 遍历
+      for (let v of s2) {
+        console.log(v)
+      }
+
+      // 清空
+      s2.clear()
+      console.log(s2)
+    </script>
+  </body>
+</html>

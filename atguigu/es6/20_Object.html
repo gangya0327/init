@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Object.is 判断两个值是否相等
+      console.log(Object.is(20, 11))
+      console.log(NaN === NaN)
+      console.log(Object.is(NaN, NaN))
+
+      // Object.assign 对象合并，后者覆盖前者
+      let o1 = {
+        name: 'peter',
+        age: 22,
+        o1: 'o1o1',
+      }
+      let o2 = {
+        name: 'jack',
+        age: 30,
+        o2: 'o2o2',
+      }
+      console.log(Object.assign(o1, o2))
+
+      // Object.setPrototypeOf 设置原型对象
+      let city = {
+        city: '杭州',
+      }
+      let school = {
+        school: '北京',
+      }
+      Object.setPrototypeOf(school, city)
+      console.log(Object.getPrototypeOf(school))
+      console.log(school)
+    </script>
+  </body>
+</html>

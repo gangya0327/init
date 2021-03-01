@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Phone(brand, price) {
+        this.brand = brand
+        this.price = price
+      }
+      Phone.prototype.call = function () {
+        console.log('calling')
+      }
+      function SmartPhone(brand, price, color, size) {
+        Phone.call(this, brand, price)
+        this.color = color
+        this.size = size
+      }
+      SmartPhone.prototype = new Phone()
+      // 矫正
+      SmartPhone.prototype.constructor = SmartPhone
+
+      // 声明子类方法
+      SmartPhone.prototype.photo = function () {
+        console.log('photo')
+      }
+      SmartPhone.prototype.play = function () {
+        console.log('play')
+      }
+      let Oppo = new SmartPhone('oppo', 3822, 'black', '5.4 inch')
+      console.log(Oppo)
+    </script>
+  </body>
+</html>

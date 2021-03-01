@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Phone() {}
+      Phone.name = '手机'
+      Phone.call = function () {
+        console.log('calling')
+      }
+      Phone.prototype.size = '5 inch'
+      let Nokia = new Phone()
+      console.log(Nokia.name)
+      console.log(Nokia.size)
+
+      class Phone1 {
+        static name = '手机'
+        static say() {
+          console.log('saying')
+        }
+      }
+      let Xiaomi = new Phone1()
+      console.log(Xiaomi.name)
+      console.log(Phone1.name)
+    </script>
+  </body>
+</html>

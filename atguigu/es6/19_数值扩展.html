@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Number.EPSION 最小精度
+      // 解决浮点数计算有误差
+      function equal(a, b) {
+        if (Math.abs(a - b) < Number.EPSILON) {
+          return true
+        } else {
+          return false
+        }
+      }
+      console.log(0.1 + 0.2 === 0.3)
+      console.log(equal(0.1 + 0.2, 0.3))
+
+      // 二进制，八进制，十六进制
+      let b = 0b1010 // 10
+      let o = 0o17 // 15
+      let d = 100
+      let x = 0xff // 255 15*16+15
+
+      // Number.isFinite 检测是否为有限数
+      console.log(Number.isFinite(100)) // true
+      console.log(Number.isFinite(Math.PI)) // true
+      console.log(Number.isFinite(Infinity)) // false
+
+      // Number.isNaN 检测是否为NaN
+      console.log(Number.isNaN(123))
+
+      // Number.parseInt,Number.parseFloat 字符串转换整数
+      console.log(Number.parseInt('123bgd2313'))
+      console.log(Number.parseFloat('3.22412dfsf222'))
+
+      // Number.isInteger 检测是否为整数
+      console.log(Number.isInteger(5))
+      console.log(Number.isInteger(5.5))
+
+      // Math.trunc 将小数去除
+      console.log(Math.trunc(3.55))
+
+      // Math.sign 检测是否为正数
+      console.log(Math.sign(100)) // 1
+      console.log(Math.sign(0)) // 0
+      console.log(Math.sign(-22)) // -1
+    </script>
+  </body>
+</html>

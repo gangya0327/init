@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Map 类似于对象，键值对的组合，键值可以为任何值
+      // 声明
+      let m = new Map()
+      console.log(m)
+
+      // 添加
+      m.set('name', 'peter')
+      m.set('say', function () {
+        console.log('hello')
+      })
+      let key = {
+        scool: 'kkb',
+      }
+      m.set(key, ['杭州', '北京'])
+      console.log(m)
+
+      // 删除
+      m.delete('name')
+      console.log(m)
+
+      // 获取
+      console.log(m.get('say'))
+
+      // 遍历
+      for (let v of m) {
+        console.log(v)
+      }
+    </script>
+  </body>
+</html>
