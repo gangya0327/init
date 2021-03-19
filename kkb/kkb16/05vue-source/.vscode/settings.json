@@ -3,5 +3,28 @@
     "**/*.code-search": false,
     "**/bower_components": false,
     "**/node_modules": false
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/.circleci": true,
+    "**/.github": true,
+    "**/benchmarks": true,
+    "**/flow": true,
+    "**/node_modules": true,
+    "**/packages": true,
+    // "**/test": true,
+    "**/types": true,
+    "**/.babelrc.js": true,
+    "**/.editorconfig": true,
+    "**/.eslintignore": true,
+    "**/.flowconfig": true,
+    "**/BACKERS.md": true,
+    "**/LICENSE": true,
+    "**/package-lock.json": true,
+    "**/yarn.lock": true,
   }
 }
