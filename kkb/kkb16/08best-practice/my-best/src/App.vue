@@ -1,12 +1,21 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">
+        <svg-icon class="bbb" iconClass="car"></svg-icon>Home
+      </router-link>|
+      <router-link to="/about">
+        <svg-icon iconClass="person"></svg-icon>About
+    </router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+
+<script>
+// import '@/icons/svg/car.svg'
+export default {}
+</script>
 
 <style>
 #app {
