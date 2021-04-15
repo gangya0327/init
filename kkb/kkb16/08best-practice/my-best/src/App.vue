@@ -6,7 +6,7 @@
       </router-link>|
       <router-link to="/about">
         <svg-icon iconClass="person"></svg-icon>About
-    </router-link>
+      </router-link>
     </div>
     <router-view />
   </div>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>composition api</h1>
+      <div>count: {{state.count}}</div>
+      <div>doubleCount: {{state.doubleCount}}</div>
+      <button @click="add">add</button>
+      <div>counter: {{counter}}</div>
+    </div>
+
+    <script>
+      const { createApp, reactive, computed, watch, onMounted, ref, toRefs } = Vue
+
+      Vue.createApp({
+        // beforeCreated之前调用
+        setup() {
+          // 数据响应式
+          const state = reactive({
+            count: 1,
+            // 计算属性
+            doubleCount: computed(() => state.count * 2),
+          })
+          // 单个原始值响应化
+          const counter = ref(7)
+          setTimeout(() => {
+            counter.value++
+          }, 2000)
+          // 声明一个回调函数
+          function add() {
+            state.count++
+          }
+          // 侦听器
+          watch(() => {
+            console.log('count变了', +state.count)
+          })
+          onMounted(() => {
+            console.log('moounted')
+          })
+          // 返回render函数的上下文对象
+          return { state, add, counter }
+        },
+      }).mount('#app')
+    </script>
+  </body>
+</html>

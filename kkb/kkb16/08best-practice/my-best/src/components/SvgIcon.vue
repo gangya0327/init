@@ -19,6 +19,8 @@ export default {
   },
   computed: {
     iconName() {
+  alert('foo')
+      alert("foo")
       return `#icon-${this.iconClass}`
     },
     svgClass() {
