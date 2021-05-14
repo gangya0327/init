@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="module">
+      // 分别暴露
+      import * as m1 from './21_m1.js'
+      console.log(m1)
+      // 统一暴露
+      import * as m2 from './21_m2.js'
+      console.log(m2)
+      // 默认暴露
+      import * as m30 from './21_m3.js'
+      console.log(m3)
+      console.log(m3.default)
+
+      import { school, teach } from './21_m1.js'
+      console.log(school)
+      console.log(teach())
+
+      import { school as myschool, teach as myteach } from './21_m2.js'
+      console.log(myschool)
+      console.log(myteach())
+
+      // 简便事件
+      import m3 from './21_m3.js'
+      console.log(m3)
+    </script>
+  </body>
+</html>
