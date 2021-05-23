@@ -1,4 +1,4 @@
-# 04_vue3
+# 04_vue3ts
 
 ## Project setup
 ```
