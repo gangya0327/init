@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const obj = {
+        name: 'peter',
+        age: 20,
+        child: {
+          name: 'cc',
+        },
+      }
+      const proxyObj = new Proxy(obj, {
+        get(target, prop) {
+          console.log('getting..')
+          return Reflect.get(target, prop)
+        },
+        set(target, prop, val) {
+          console.log('setting..')
+          Reflect.set(target, prop, val)
+        },
+        deleteProperty() {
+          console.log('delete..')
+          Reflect.deleteProperty(target, prop)
+        },
+      })
+      console.log(proxyObj.name)
+      proxyObj.name = 'raven'
+      console.log(obj)
+      delete obj.name
+      console.log(obj)
+      obj.child.name = 'dd'
+      console.log(obj)
+    </script>
+  </body>
+</html>

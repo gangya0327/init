@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script src="./index.js"></script>
+  <script>
+    const proxyUser1 = shallowReactive({
+      name: 'peter',
+      cars: {
+        color: 'red',
+      },
+    })
+    console.log(proxyUser1.name)
+    proxyUser1.name += '123'
+    delete proxyUser1.name
+    console.log(proxyUser1.cars.color)
+    proxyUser1.cars.color = 'blue' // 无法拦截
+    delete proxyUser1.cars.color // 无法拦截
+    console.log(proxyUser1)
+    console.log('------')
+
+    const proxyUser2 = reactive({
+      name: 'raven',
+      cars: {
+        color: 'yellow',
+      },
+    })
+    console.log(proxyUser2.name)
+    proxyUser2.name += '456'
+    delete proxyUser2.name
+    console.log(proxyUser2.cars.color)
+    proxyUser2.cars.color = 'green' // 无法拦截
+    delete proxyUser2.cars.color // 无法拦截
+    console.log(proxyUser2)
+    console.log('------')
+
+    const proxyUser3 = shallowReadonly({
+      name: 'tom',
+      cars: ['jeep', 'bus'],
+    })
+    console.log(proxyUser3.name)
+    proxyUser3.name = '123'
+    delete proxyUser3.name
+    proxyUser3.cars[0] = 'taxi'
+    delete proxyUser3.cars[1]
+    console.log(proxyUser3.cars)
+    console.log('------')
+
+    const proxyUser4 = readonly({
+      name: 'sally',
+      cars: ['mobile', 'bus'],
+    })
+    proxyUser4.name = '123'
+    proxyUser4.cars[0] = 'jeep'
+    delete proxyUser4.name
+    delete proxyUser4.cars[1]
+    console.log('------')
+
+    const ref1 = shallowRef({
+      name: 'jack',
+      car: {
+        color: 'red',
+      },
+    })
+    console.log(ref1.value)
+    ref1.value = '123'
+    console.log(ref1.value)
+    console.log(ref1.value.car) // 无法拦截
+    ref1.value.car = '1234'
+    console.log('------')
+
+    const ref2 = ref({
+      name: 'jack',
+      car: {
+        color: 'red',
+      },
+    })
+    console.log(ref2.value)
+    ref2.value = '456'
+    console.log(ref2.value)
+    console.log(ref2.value.car)
+    ref2.value.car = '1234'
+  </script>
+</html>
