@@ -18,5 +18,6 @@ module.exports = {
     'comma-dangle': 'off',
     'prefer-const': 'off',
     'no-plusplus': 'off',
+    'max-len': 'off'
   },
 };
