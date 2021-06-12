@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      captureImage('https://www.w3school.com.cn/i/movie.mp4')
+
+      function captureImage(url) {
+        let that = this
+        // 创建视频对象
+        let video = new Video()
+        video.width = 200
+        vieo.height = 500
+        video.setAttribute('crossOrigin', 'Anonymous')
+        video.setAttribute('controls', 'controls')
+        video.setAttribute('autoplay', 'autoplay')
+        video.volume = 0
+        video.setAttribute('src', url) // 视频的链接
+        video.addEventListener('loadeddate', function () {
+          // 创建canvas画布
+          let canvas = document.createElement('canvas')
+          canvas.width = video.width // 设置画布的长宽也就是图片的长宽
+          canvas.height = video.height
+          canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height)
+          let img = document.createElement('img')
+          img.setAttribute('crossOrigin', 'Anonymous')
+          img.src = canvas.toDataURL('image/png')
+          console.log(`img.src`, img.src)
+          // let name = img.src.substring(img.src.lastIndexOf('/') + 1, img.src.length)
+          // that.dataURLtoFile(img.src, name)
+        })
+      }
+    </script>
+  </body>
+</html>

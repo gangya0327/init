@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="big-box"></div>
+
+    <script type="text/javascript">
+      ;(function () {
+        // 模拟视频路径
+        var videoFile = [
+          'https://www.w3school.com.cn/i/movie.mp4',
+          // 'http://vfx.mtime.cn/Video/2019/03/19/mp4/190319222227698228.mp4',
+          // 'http://vfx.mtime.cn/Video/2019/03/19/mp4/190319212559089721.mp4',
+        ]
+
+        // 遍历取出需要的第一帧
+        $.each(videoFile, function (index, values) {
+          var listHtml =
+            '<video id="video" class="video" controls="controls">' +
+            '<source src="' +
+            values +
+            '">' +
+            '</video>' +
+            '<div class="output"></div>'
+          $('.big-box').append(listHtml)
+
+          var canvas = document.createElement('canvas')
+          var img = document.createElement('img')
+          var video = $('.video')[index]
+          var output = $('.output')[index]
+          // video.setAttribute('crossOrigin', 'anonymous')
+          canvas.width = video.clientWidth
+          canvas.height = video.clientHeight
+          video.onloadeddata = () => {
+            console.log(11)
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height)
+            var dataURL = canvas.toDataURL('image/png')
+            img.src = dataURL
+            img.width = 400
+            img.height = 300
+          }
+          $('.output').append(img)
+        })
+
+        // 删除掉不需要的video标签部分
+        $('.output img:nth-child(1)').fadeIn().siblings().remove()
+        $('.big-box .video').remove()
+      })()
+    </script>
+  </body>
+</html>
