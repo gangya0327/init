@@ -7,8 +7,23 @@
     <title>Document</title>
   </head>
   <body>
-    <script src="./hello.js"></script>
+    <!-- 宿主文件 -->
+    <div id="app">{{title}}</div>
 
-    <h3>hello</h3>
+    <script src="./vue.js"></script>
+    <script>
+      // 创建vue实例
+      const app = new Vue({
+        el: '#app',
+        data() {
+          return {
+            title: 'hello vue',
+          }
+        },
+      })
+      setTimeout(() => {
+        app.title = 'change success'
+      }, 1000)
+    </script>
   </body>
 </html>

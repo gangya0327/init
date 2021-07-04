@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>购物车</title>
+    <style>
+      .active {
+        background-color: #ddd;
+      }
+      .message-box {
+        padding: 10px 20px;
+        background: #4fc08d;
+        border: 1px solid #42b983;
+      }
+      .message-box-close {
+        float: right;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 宿主文件 -->
+    <div id="app">
+      <!-- 弹窗组件 -->
+      <!-- <message :show="isShow" @close="isShow=$event">新增课程成功！</message> -->
+      <message :show.sync="isShow">
+        <!-- 具名插槽：命名为title的插槽 -->
+        <template v-slot:title><h3>操作成功</h3></template>
+        <!-- 默认插槽 -->
+        <template>新增课程成功！</template>
+      </message>
+
+      <!-- 插值文本 -->
+      <h2 v-bind:title="title">{{title}}</h2>
+
+      <!-- 新增组件 -->
+      <!-- <course-add @add-course="addCourse"></course-add> -->
+      <course-add v-model="course" @add-course="addCourse"></course-add>
+      <!-- <course-add :value="course" @input="course=$event" @add-course="addCourse"></course-add> -->
+
+      <!-- 列表组件 -->
+      <course-list :courses="courses"></course-list>
+
+      <!-- 商品总数 -->
+      <p>
+        <!-- 表达式 -->
+        课程总数：{{courses.length+' 门'}}
+        <br />
+        <!-- 计算属性 -->
+        课程总数：{{total}}
+        <br />
+        课程总数：{{totalCount}}
+      </p>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // 弹窗组件
+      Vue.component('message', {
+        props: ['show'],
+        template: `
+        <div class="message-box" v-if="show">
+          <span class="message-box-close" @click="$emit('update:show', false)">x</span>
+          <!-- 具名插槽 -->
+          <slot name="title"></slot>
+          <slot></slot>
+        </div>
+        `,
+      })
+      // 课程新增组件
+      Vue.component('course-add', {
+        props: ['value'],
+        // data() {
+        //   return {
+        //     course: '',
+        //   }
+        // },
+        template: `
+        <!-- 用户输入 -->
+        <p>
+          <input type="text" :value="value" @input="onInput" v-on:keydown.enter="addCourse" />
+          <button @click="addCourse">新增</button>
+        </p>
+        `,
+        methods: {
+          addCourse() {
+            // 派发事件，通知父组件新增课程
+            // this.$emit('add-course', this.value)
+            this.$emit('add-course')
+          },
+          onInput(e) {
+            this.$emit('input', e.target.value)
+          },
+        },
+      })
+      // 课程列表组件
+      Vue.component('course-list', {
+        props: {
+          courses: {
+            type: Array,
+            default: [],
+          },
+        },
+        data() {
+          return {
+            selectedCourse: '',
+          }
+        },
+        template: `
+        <!-- 条件渲染 -->
+        <p v-if="courses.length===0">没有任何课程信息</p>
+        <!-- 列表渲染 -->
+        <div class="course-list" v-else>
+          <div v-for="c in courses" :key="c.name" :class="{active: selectedCourse===c}" @click="selectedCourse=c">{{c}}</div>
+          <!-- <hr />
+          <div
+            v-for="c in courses"
+            :key="c.name"
+            :style="{backgroundColor: selectedCourse===c ? '#ddd' : ''}"
+            @click="selectedCourse=c"
+          >
+            {{c.name}}: {{c.price}}
+          </div> -->
+        </div>
+        `,
+      })
+      // 异步获取课程
+      function getCourses() {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve([{ name: 'web全栈' }, { name: 'web高级' }, { name: 'web入门' }])
+          }, 2000)
+        })
+      }
+      // 创建vue实例
+      const app = new Vue({
+        el: '#app',
+        data() {
+          return {
+            title: '购物车',
+            course: '',
+            // selectedCourse: '',
+            courses: [],
+            // courses: ['web全栈', 'web高级', 'web入门'],
+            // totalCount: 0,
+            isShow: false,
+          }
+        },
+        async created() {
+          // 组件实例已创建，但还未挂载，dom不存在
+          const data = await getCourses()
+          this.courses = data
+
+          // 批量更新商品价格
+          this.batchUpdate()
+        },
+        // mounted() {},
+        methods: {
+          addCourse() {
+            // 1. 添加course到数组
+            this.courses.push(this.course)
+            // 2. 清空course
+            this.course = ''
+            // this.courses.push(course)
+            this.isShow = true
+          },
+          batchUpdate() {
+            this.courses.forEach((c) => {
+              c.price = 0
+            })
+          },
+        },
+        computed: {
+          total() {
+            // 计算属性有缓存性，如果值没有变化，页面不会重新渲染
+            return this.courses.length + ' 门'
+          },
+        },
+        watch: {
+          courses: {
+            immediate: true,
+            deep: true,
+            handler(newValue, oldValue) {
+              this.totalCount = newValue.length + ' 门'
+            },
+          },
+        },
+      })
+    </script>
+  </body>
+</html>

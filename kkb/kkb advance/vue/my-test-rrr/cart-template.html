@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>购物车</title>
+    <style>
+      .active {
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 宿主文件 -->
+    <div id="app"></div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // 创建vue实例
+      const app = new Vue({
+        el: '#app',
+        data() {
+          return {
+            title: '购物车',
+            course: '',
+            selectedCourse: '',
+            // courses: [],
+            courses: ['web全栈', 'web高级', 'web入门'],
+          }
+        },
+        methods: {
+          addCourse() {
+            // 1. 添加course到数组
+            this.courses.push(this.course)
+            // 2. 清空course
+            this.course = ''
+          },
+        },
+        render() {
+          with(this){
+            return _c('div',{attrs:{"id":"app"}},[_c('h2',{attrs:{"title":title}},[_v(_s(title))]),_v(" "),_c('p',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(course),expression:"course"}],attrs:{"type":"text"},domProps:{"value":(course)},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_k($event.keyCode,"enter",13,$event.key,"Enter"))return null;return addCourse.apply(null, arguments)},"input":function($event){if($event.target.composing)return;course=$event.target.value}}}),_v(" "),_c('button',{on:{"click":addCourse}},[_v("新增")]),_v("\n        "+_s(course)+"\n      ")]),_v(" "),(courses.length===0)?_c('p',[_v("没有任何课程信息")]):_c('div',{staticClass:"course-list"},_l((courses),function(c){return _c('div',{key:c,class:{active: selectedCourse===c},on:{"click":function($event){selectedCourse=c}}},[_v(_s(c))])}),0)])
+          }
+        }
+      })
+      console.log(app.$options.render)
+
+      // (function anonymous() {
+      //   with(this){
+      //     return _c('div',{attrs:{"id":"app"}},[_c('h2',{attrs:{"title":title}},[_v(_s(title))]),_v(" "),_c('p',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(course),expression:"course"}],attrs:{"type":"text"},domProps:{"value":(course)},on:{"keydown":function($event){if(!$event.type.indexOf('key')&&_k($event.keyCode,"enter",13,$event.key,"Enter"))return null;return addCourse.apply(null, arguments)},"input":function($event){if($event.target.composing)return;course=$event.target.value}}}),_v(" "),_c('button',{on:{"click":addCourse}},[_v("新增")]),_v("\n        "+_s(course)+"\n      ")]),_v(" "),(courses.length===0)?_c('p',[_v("没有任何课程信息")]):_c('div',{staticClass:"course-list"},_l((courses),function(c){return _c('div',{key:c,class:{active: selectedCourse===c},on:{"click":function($event){selectedCourse=c}}},[_v(_s(c))])}),0)])
+      //   }
+      // })
+    </script>
+  </body>
+</html>
