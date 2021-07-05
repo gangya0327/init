@@ -61,7 +61,7 @@
       <h2 v-bind:title="title">{{title}}</h2>
 
       <!-- toolbar -->
-      <div class="toolbar" v-permission="'admin'">
+      <div class="toolbar">
         <button @click="$bus.$emit('message-close')">清空提示框</button>
       </div>
 
@@ -96,7 +96,12 @@
       Vue.prototype.$bus = new Vue()
       // 弹窗组件
       Vue.component('message', {
-        props: ['show'],
+        // props: ['show'],
+        data() {
+          return {
+            show: false,
+          }
+        },
         template: `
         <transition name="fade">
           <div class="message-box" v-if="show">
@@ -131,7 +136,7 @@
         template: `
         <!-- 用户输入 -->
         <p>
-          <input type="text" ref="inp" v-focus :value="value" @input="onInput" v-on:keydown.enter="addCourse" />
+          <input type="text" ref="inp" :value="value" @input="onInput" v-on:keydown.enter="addCourse" />
           <button @click="addCourse">新增</button>
         </p>
         `,
@@ -146,26 +151,9 @@
           },
         },
         mounted() {
-          // this.$refs.inp.focus()
+          this.$refs.inp.focus()
         },
       })
-      // 自定义指令
-      Vue.directive('focus', {
-        inserted(el) {
-          el.focus()
-        },
-      })
-      const role = 'custom'
-      Vue.directive('permission', {
-        inserted(el, binding) {
-          console.log('binding', binding)
-          console.log(`role`, role)
-          if (role !== binding.value) {
-            el.parentNode.removeChild(el)
-          }
-        },
-      })
-
       // 课程列表组件
       Vue.component('course-list', {
         props: {
@@ -184,9 +172,11 @@
         <p v-if="courses.length===0">没有任何课程信息</p>
         <!-- 列表渲染 -->
         <div class="course-list" v-else>
-          <div v-for="c in courses" :key="c.name" :class="{active: selectedCourse===c}" @click="selectedCourse=c">
-            {{c.name}}: {{c.price | currency('$')}}
-          </div>
+          <transition-group name="fade">
+            <div v-for="c in courses" :key="c.name" :class="{active: selectedCourse===c}" @click="selectedCourse=c">
+              {{c.name}}: ￥{{c.price}}
+            </div>
+          </transition-group>
           <!-- <hr />
           <div
             v-for="c in courses"
@@ -198,17 +188,7 @@
           </div> -->
         </div>
         `,
-        filters: {
-          currency(value, symbol = '￥') {
-            return symbol + ' ' + value
-          },
-        },
       })
-      // 全局设置过滤器
-      Vue.filter('currency', function (vlaue) {
-        return '￥' + value
-      })
-
       // 异步获取课程
       function getCourses() {
         return new Promise((resolve) => {
@@ -246,7 +226,7 @@
           addCourse() {
             if (this.course) {
               // 1. 添加course到数组
-              this.courses.push(this.course)
+              this.courses.push({ name: this.course })
               // 2. 清空course
               this.course = ''
               // this.courses.push(course)

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
     <title>购物车</title>
     <style>
       .active {
@@ -22,17 +23,6 @@
       }
       .message-box-close {
         float: right;
-      }
-      /* 动画样式 */
-      /* 入场前状态 */
-      .fade-enter,
-      .fade-leave-to {
-        opacity: 0;
-      }
-      /* 过渡定义 */
-      .fade-enter-active,
-      .fade-leave-active {
-        transition: opacity 1s;
       }
     </style>
   </head>
@@ -61,7 +51,7 @@
       <h2 v-bind:title="title">{{title}}</h2>
 
       <!-- toolbar -->
-      <div class="toolbar" v-permission="'admin'">
+      <div class="toolbar">
         <button @click="$bus.$emit('message-close')">清空提示框</button>
       </div>
 
@@ -98,7 +88,7 @@
       Vue.component('message', {
         props: ['show'],
         template: `
-        <transition name="fade">
+        <transition enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
           <div class="message-box" v-if="show">
             <!-- <span class="message-box-close" @click="$emit('update:show', false)">x</span> -->
             <span class="message-box-close" @click="toggle">x</span>
@@ -131,7 +121,7 @@
         template: `
         <!-- 用户输入 -->
         <p>
-          <input type="text" ref="inp" v-focus :value="value" @input="onInput" v-on:keydown.enter="addCourse" />
+          <input type="text" ref="inp" :value="value" @input="onInput" v-on:keydown.enter="addCourse" />
           <button @click="addCourse">新增</button>
         </p>
         `,
@@ -146,26 +136,9 @@
           },
         },
         mounted() {
-          // this.$refs.inp.focus()
+          this.$refs.inp.focus()
         },
       })
-      // 自定义指令
-      Vue.directive('focus', {
-        inserted(el) {
-          el.focus()
-        },
-      })
-      const role = 'custom'
-      Vue.directive('permission', {
-        inserted(el, binding) {
-          console.log('binding', binding)
-          console.log(`role`, role)
-          if (role !== binding.value) {
-            el.parentNode.removeChild(el)
-          }
-        },
-      })
-
       // 课程列表组件
       Vue.component('course-list', {
         props: {
@@ -185,7 +158,7 @@
         <!-- 列表渲染 -->
         <div class="course-list" v-else>
           <div v-for="c in courses" :key="c.name" :class="{active: selectedCourse===c}" @click="selectedCourse=c">
-            {{c.name}}: {{c.price | currency('$')}}
+            {{c.name}}: ￥{{c.price}}
           </div>
           <!-- <hr />
           <div
@@ -198,17 +171,7 @@
           </div> -->
         </div>
         `,
-        filters: {
-          currency(value, symbol = '￥') {
-            return symbol + ' ' + value
-          },
-        },
       })
-      // 全局设置过滤器
-      Vue.filter('currency', function (vlaue) {
-        return '￥' + value
-      })
-
       // 异步获取课程
       function getCourses() {
         return new Promise((resolve) => {
