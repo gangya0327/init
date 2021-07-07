@@ -1,19 +1,13 @@
 <template>
-  <div>
-
-  </div>
+  <div>{{title}}</div>
 </template>
 
 <script>
   export default {
-    computed: {
-      name() {
-        return this.data 
+    data() {
+        return {
+          title:'hello'
       }
     },
   }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

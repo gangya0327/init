@@ -106,8 +106,6 @@
     </div>
 
     <script src="./vue.js"></script>
-    <script src="./plugins/heading.js"></script>
-
     <script>
       Vue.prototype.$bus = new Vue()
       // 弹窗组件
@@ -223,6 +221,26 @@
       // 全局设置过滤器
       Vue.filter('currency', function (vlaue) {
         return '￥' + value
+      })
+
+      // heading组件
+      // <heading :level='1' :title='title'>{{title}}</heading>
+      Vue.component('heading', {
+        functional: true, // 函数式组件
+        render(h, context) {
+          console.log(`context`, context)
+          let children = []
+          // 属性获取
+          const { icon, title, level } = context.props
+
+          if (icon) {
+            // <svg class="icon"><use xlink:href="#icon-cart"></use></svg>
+            children.push(h('svg', { class: 'icon' }, [h('use', { attrs: { 'xlink:href': '#icon-' + icon } })]))
+          }
+          children = children.concat(context.children)
+          console.log(`children`, children)
+          return h('h' + level, { attrs: { title } }, children)
+        },
       })
 
       // 异步获取课程
