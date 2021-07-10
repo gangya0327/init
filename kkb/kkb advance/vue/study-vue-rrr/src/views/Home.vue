@@ -1,31 +1,19 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <course-list :courses="courses"></course-list>
+    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-import CourseList from '@/components/CourseList'
-import { getCourses } from '@/api/course'
+import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
   components: {
-    // HelloWorld,
-    CourseList,
-  },
-  data() {
-    return {
-      courses: [],
-    }
-  },
-  async created() {
-    const data = await getCourses()
-    this.courses = data
+    HelloWorld,
+    // CourseList,
   },
 }
 </script>

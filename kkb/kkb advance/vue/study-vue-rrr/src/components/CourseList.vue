@@ -7,8 +7,11 @@
       v-for="c in courses"
       :key="c.name"
       :class="{ active: selectedCourse === c }"
-      @click="selectedCourse = c"
+      @click="selectedCourse = c;$router.push('/admin/course/' + c.name).catch(err=>err)"
     >
+      <!-- <router-link :to="'/admin/course/' + c.name"
+        >{{ c.name }}: {{ c.price | currency('$') }}</router-link
+      > -->
       {{ c.name }}: {{ c.price | currency('$') }}
     </div>
     <!-- <hr />
