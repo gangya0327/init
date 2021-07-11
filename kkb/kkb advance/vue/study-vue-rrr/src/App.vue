@@ -3,12 +3,36 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/admin">Admin</router-link>
+
+      <div v-if="isLogin">
+        <span>{{ welcome }}</span>
+        <button @click="logout">注销</button>
+      </div>
     </div>
+
     <keep-alive include="admin" max="10">
       <router-view />
     </keep-alive>
   </div>
 </template>
+
+<script>
+import { mapState, mapGetters, mapMutations } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState('user', ['isLogin']),
+    ...mapGetters('user', ['welcome']),
+  },
+  methods: {
+    ...mapMutations(['user/logout']),
+    logout() {
+      this['user/logout']()
+      this.$router.push('/login')
+    },
+  },
+}
+</script>
 
 <style>
 #app {

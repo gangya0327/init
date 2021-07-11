@@ -6,36 +6,51 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
+  mounted() {
+    console.log(mapActions(['user/login']))
+  },
   computed: {
-    isLogin() {
-      return window.isLogin
-    },
+    // isLogin() {
+    //   return this.$store.state.user.isLogin
+    // },
+    ...mapState('user', ['isLogin']),
   },
   methods: {
+    ...mapActions(['user/login']),
     login() {
-      window.isLogin = true
-      this.$router.addRoutes([
-        {
-          path: '/admin',
-          name: 'Admin',
-          meta: {
-            auth: true,
-          },
-          component: () => import('@/views/Admin.vue'),
-          children: [
-            {
-              path: '/admin/course/:name',
-              name: 'detail',
-              component: () => import('@/views/Detail.vue'),
+      // window.isLogin = true
+      // this.$store
+      //   .dispatch('user/login', 'admin')
+      // this.$store.state.user.isLogin = true
+      this['user/login']('admin')
+        .then(() => {
+          this.$router.addRoute({
+            path: '/admin',
+            name: 'Admin',
+            meta: {
+              auth: true,
             },
-          ],
-        },
-      ])
-      this.$router.push(this.$route.query.redirect)
+            component: () => import('@/views/Admin.vue'),
+            children: [
+              {
+                path: '/admin/course/:name',
+                name: 'detail',
+                component: () => import('@/views/Detail.vue'),
+              },
+            ],
+          })
+          this.$router.push(this.$route.query.redirect)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     logout() {
-      window.isLogin = false
+      // window.isLogin = false
+      this.$store.commit('user/logout')
       this.$router.push('/')
     },
   },
