@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     'plugin:vue/essential',
     '@vue/airbnb',
+    // "eslint:recommended"
   ],
   parserOptions: {
     parser: 'babel-eslint',
