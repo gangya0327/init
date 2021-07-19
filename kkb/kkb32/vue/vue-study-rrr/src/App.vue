@@ -2,9 +2,15 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link to="/article">Article</router-link>
     </div>
-    <router-view/>
+
+    <p @click="$store.commit('add')">{{ $store.state.counter }}</p>
+    <p @click="$store.dispatch('add')">async: {{ $store.state.counter }}</p>
+    <p>getters: {{ $store.getters.doubleCounter }}</p>
+
+    <router-view />
   </div>
 </template>
 
