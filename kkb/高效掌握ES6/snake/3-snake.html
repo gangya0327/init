@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    #map {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      background: #000;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <script>
+    class Map {
+      constructor(el, rect = 10) {
+        this.el = el
+        this.rect = rect
+        this.data = []
+        this.rows = Math.ceil(Map.getStyle(el, 'height') / rect)
+        this.cells = Math.ceil(Map.getStyle(el, 'width') / rect)
+        Map.setStyle(el, 'height', this.rows * rect)
+        Map.setStyle(el, 'width', this.cells * rect)
+      }
+      static getStyle(el, attr) {
+        return parseFloat(getComputedStyle(el)[attr])
+      }
+      static setStyle(el, attr, val) {
+        el.style[attr] = val + 'px'
+      }
+      setData(newData) {
+        this.data = this.data.concat(newData)
+      }
+      clearData() { this.data.length = 0 }
+      include({ x, y }) {
+        return this.data.some(item => item.x === x && item.y === y)
+      }
+      render() {
+        this.el.innerHTML = this.data.map(item => {
+          return `<span style="position: absolute;left: ${item.x * this.rect}px;top: ${item.y * this.rect}px;background: ${item.color};width: ${this.rect}px;height: ${this.rect}px"></span>`
+        }).join('')
+      }
+    }
+
+    class Food {
+      constructor(map, colors = ['red', 'blue', 'orange', 'yellow']) {
+        this.map = map
+        this.colors = colors
+        this.data = null
+        this.create()
+      }
+      create() {
+        let x = Math.floor(Math.random() * this.map.cells)
+        let y = Math.floor(Math.random() * this.map.rows)
+        let color = this.colors[Math.floor(Math.random() * this.colors.length)]
+        console.log(x, y, color)
+        this.data = { x, y, color }
+        if (this.map.include(this.data)) {
+          this.create()
+        }
+        this.map.setData(this.data)
+      }
+    }
+
+    class Snake {
+      constructor(map, food) {
+        this.data = [
+          { x: 5, y: 4, color: '#0f0' },
+          { x: 4, y: 4, color: '#ddd' },
+          { x: 3, y: 4, color: '#ddd' },
+          { x: 2, y: 4, color: '#ddd' },
+        ]
+        // map.setData(this.data)
+        this.food = food
+        this.map = map
+        this.direction = 'right'
+      }
+      move() {
+        console.log(`this.data`, this.data)
+        let last = this.data.length - 1
+        this.lastData = {
+          x: this.data[last].x,
+          y: this.data[last].y,
+          color: this.data[last].color
+        }
+        // 蛇身每次移动到前面一个的位置
+        for (let i = this.data.length - 1; i > 0; i--) {
+          this.data[i].x = this.data[i - 1].x
+          this.data[i].y = this.data[i - 1].y
+        }
+        // 蛇头根据当前方向移动
+        switch (this.direction) {
+          case 'left':
+            this.data[0].x--
+            break
+          case 'right':
+            this.data[0].x++
+            break
+          case 'up':
+            this.data[0].y--
+            break
+          case 'down':
+            this.data[0].y++
+            break
+        }
+      }
+      changeDir(dir) {
+        if (this.direction === 'left' || this.direction === 'right') {
+          if (dir === 'left' || dir === 'right') {
+            return false
+          }
+        }
+        if (this.direction === 'up' || this.direction === 'down') {
+          if (dir === 'up' || dir === 'down') {
+            return false
+          }
+        }
+        this.direction = dir
+      }
+      eatFood() {
+        this.data.push(this.lastData)
+      }
+    }
+
+    let map = document.querySelector('#map')
+    let gameMap = new Map(map, 10)
+    let gameFood = new Food(gameMap)
+    let snake = new Snake(gameMap, gameFood)
+    gameMap.render()
+    setInterval(() => {
+      snake.move()
+      console.log(gameMap.data)
+      gameMap.clearData()
+      gameMap.setData(snake.data)
+      gameMap.render()
+    }, 1000);
+
+    setTimeout(() => {
+      snake.changeDir('down')
+      snake.eatFood()
+    }, 3000);
+    setTimeout(() => {
+      snake.changeDir('right')
+      snake.eatFood()
+    }, 5000);
+
+  </script>
+</body>
+
+</html>
