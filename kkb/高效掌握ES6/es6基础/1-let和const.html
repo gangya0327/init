@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    console.log(`a`, a) // undefined
+    var a = 1
+    console.log(`b`, b) // Error
+    // let 不会预解析，先声明再使用，不能重复声明
+    let b = 0
+    // const不能重新赋值，声明时必须赋值，不会预解析
+    const c = 9
+    c = 98
+  </script>
+</body>
+
+</html>
