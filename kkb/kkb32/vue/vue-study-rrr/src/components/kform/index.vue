@@ -35,6 +35,11 @@ export default {
   methods: {
     submit() {
       this.$refs.myForm.validate((valid) => {
+        this.$notice({
+          title: '社会你杨哥喊你来搬砖',
+          message: valid ? '请求登录!' : '校验失败!',
+          duration: 1000,
+        })
         if (valid) {
           console.log('success')
         } else {
