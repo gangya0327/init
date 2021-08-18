@@ -13,7 +13,7 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloWorld from 'comps/HelloWorld.vue'
 import KForm from '@/components/form/index.vue'
 import MyKForm from '@/components/kform/index.vue'
 

@@ -1,9 +1,23 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/article">Article</router-link>
+      <router-link to="/">
+        <!-- <svg>
+          <use xlink:href="#icon-home"></use>
+        </svg> -->
+        <svg-icon icon-class="home"></svg-icon>
+        Home</router-link
+      >
+      |
+      <router-link to="/about">
+        <svg-icon icon-class="about"></svg-icon>
+        About</router-link
+      >
+      |
+      <router-link to="/article">
+        <svg-icon icon-class="article"></svg-icon>
+        Article</router-link
+      >
     </div>
 
     <p @click="$store.commit('add')">{{ $store.state.counter }}</p>
@@ -13,6 +27,15 @@
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  created() {
+    console.log('服务端变量foo', process.env.foo)
+    console.log('客户端变量dong', process.env.VUE_APP_DONG)
+  },
+}
+</script>
 
 <style>
 #app {
@@ -28,6 +51,7 @@
 }
 
 #nav a {
+  font-size: 24px;
   font-weight: bold;
   color: #2c3e50;
 }

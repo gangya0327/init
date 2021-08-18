@@ -17,6 +17,8 @@ Vue.prototype.$notice = function(props) {
   notice.show()
 }
 
+import '@/icons'
+
 new Vue({
   router,
   store,
