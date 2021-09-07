@@ -1,36 +1,19 @@
 ### CSS书写顺序
 
-#### 1. 位置，定位
-- display
-- float
-- position
-- top
-- right
-- z-index
+#### 1. 布局，定位
+display, float, position, top, right, bottom, left, z-index
 
 #### 2. 大小，排版
-- width
-- height
-- margin
-- padding
-- border
-- outline
+width, min-width, max-width, height, margin, margin-top, margin-right, padding, border, outline, list-style
 
 #### 3. 文字
-- font
-- line-height
-- text-align
-- letter-spacing
-- color
+font, line-height, text-align, letter-spacing, color
 
 #### 4. 背景
-- background
+background
 
 #### 5. 其他
-- opacity
-- cursor
-- animation
-- transition
+opacity, cursor, animation, transition
 
 #### 示例参考
 ```css
@@ -114,3 +97,14 @@ el {
     quotes: ;
 }
 ```
+
+### day1-expanding-cards
+- 过渡属性`transition`，动画属性`animation`
+- 节点类数组`classList`，有方法`add, remove, toggle`
+
+### day2-progresss-steps
+- 属性选择器使用“:”符号 `.btn:disabled`
+- css变量声明`--xxx:aa`，使用`bb:var(--xxx)`
+- 简化节点内容，部分内容可使用:before伪元素
+- 有计数时使用变量值
+- 抽取公共方法
