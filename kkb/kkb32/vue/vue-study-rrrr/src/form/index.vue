@@ -51,6 +51,11 @@ export default {
   methods: {
     onSubmit() {
       this.$refs.kForm.validate((result) => {
+        this.$notice({
+          title: '提示消息',
+          message: result ? '验证成功' : '验证失败',
+          duration: 2000,
+        });
         if (result) {
           console.log('ok');
         } else {
