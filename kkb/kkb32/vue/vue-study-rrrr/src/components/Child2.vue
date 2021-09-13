@@ -6,6 +6,13 @@
     <h3>provide</h3>
     <div>appMsg: {{ appMsg }}</div>
     <div>bar: {{ bar }}</div>
+
+    <h2>插槽</h2>
+    <slot></slot>
+    <br />
+    <slot name="content"></slot>
+    <br />
+    <slot name="mine" :foo="foo"></slot>
   </div>
 </template>
 
@@ -15,6 +22,11 @@ export default {
   inject: {
     appMsg: 'appMsg',
     bar: { from: 'foo' },
+  },
+  data() {
+    return {
+      foo: 'foo',
+    };
   },
 };
 </script>
