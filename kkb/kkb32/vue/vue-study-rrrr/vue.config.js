@@ -3,6 +3,9 @@ const path = require('path');
 
 const resolve = (dir) => path.resolve(__dirname, dir);
 
+console.log('server env.foo', process.env.foo);
+console.log('server env.VUE_APP_DONG', process.env.VUE_APP_DONG);
+
 module.exports = {
   publicPath: '/best',
   devServer: {

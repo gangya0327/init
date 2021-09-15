@@ -16,6 +16,9 @@ import Child1 from 'comps/Child1.vue';
 import KElement from '@/form/index.vue';
 import CustomSvg from '@/components/CustomSvg.vue';
 
+console.log('client env.foo', process.env.foo);
+console.log('client env.VUE_APP_DONG', process.env.VUE_APP_DONG);
+
 export default {
   name: 'App',
   components: {
