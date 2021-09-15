@@ -5,13 +5,16 @@
     <Child1 msg="some msg from app" name="child" @appEvent="appEvent"></Child1>
 
     <k-element></k-element>
+
+    <custom-svg></custom-svg>
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue';
-import Child1 from '@/components/Child1.vue';
+import Child1 from 'comps/Child1.vue';
 import KElement from '@/form/index.vue';
+import CustomSvg from '@/components/CustomSvg.vue';
 
 export default {
   name: 'App',
@@ -19,6 +22,7 @@ export default {
     // HelloWorld,
     Child1,
     KElement,
+    CustomSvg,
   },
   data() {
     return {};

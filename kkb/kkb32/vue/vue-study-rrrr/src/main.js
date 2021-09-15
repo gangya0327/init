@@ -4,6 +4,9 @@ import App from './App.vue';
 import Notice from '@/components/Notice.vue';
 import create from '@/utils/create';
 
+// icons
+import '@/icons';
+
 Vue.config.productionTip = false;
 
 // eslint-disable-next-line func-names
