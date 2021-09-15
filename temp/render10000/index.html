@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>渲染10000条数据</h2>
+    <p>
+        来源：<a href="https://mp.weixin.qq.com/s/joXY-I88v5nO4x1kPYDV2Q">面试题-渲染一万条数据</a>
+    </p>
+
+    <button onclick="addByCreateElement()">通过CreateElement添加数据</button>
+    <button onclick="addByCreateDocumentFragment()">通过CreateDocumentFragment添加数据</button>
+    <button onclick="window.requestAnimationFrame(addByRequestAnimationFrame)">通过RequestAnimationFrame加载数据</button>
+    <button onclick="cleanContent()">清空content内容</button>
+
+    <h3>createDocumentFragment</h3>
+    <ul>
+        <li>一个指向空DocumentFragment对象的引用，是DOM节点，但不是主DOM树</li>
+        <li>先创建文档片段，将元素附加到文档片段中，再将其附加到DOM树上</li>
+        <li>文档片段存在于内存中，将元素插入到文档片段中不会引起页面重排</li>
+    </ul>
+
+    <h3>requestAnimationFrame</h3>
+    <ul>
+        <li>requestAnimationFrame会将每一帧的所有DOM操作集中</li>
+        <li>在一次重绘或重排中完成，其间隔时间跟随浏览器的刷新频率，通常频率为每秒60帧，由系统决定执行时机，不会卡帧</li>
+        <li>可保证每个刷新间隔内，函数只被执行一次，做到节流</li>
+        <li>在隐藏或不可见的元素中，requestAnimationFrame不会进行重绘或重排</li>
+        <li>requestAnimationFrame是专门为动画提供的API，在页面不是激活状态下，动画自动暂停，减少CPU开销</li>
+    </ul>
+
+    <div id="content"></div>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
