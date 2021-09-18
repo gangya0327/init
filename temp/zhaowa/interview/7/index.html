@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSS</title>
+</head>
+
+<body>
+    <a href="">跳转到url</a>
+    <!-- http://127.0.0.1:5500/7/index.html?redirectUrl=javascript:alert(%22hahaha%22)&c=d -->
+    <!-- http://127.0.0.1:5500/7/index.html?redirectUrl=javascript:var%20script%20=%20document.createElement(%27script%27);%20script.type%20=%20%27text/javascript%27;%20script.async%20=%20true;%20script.src%20=%20%27remote.js%27;%20var%20s%20=%20document.getElementsByTagName(%27script%27)[0];%20s.parentNode.insertBefore(script,%20s); -->
+
+    <script src="./type-dom.js"></script>
+</body>
+
+</html>
