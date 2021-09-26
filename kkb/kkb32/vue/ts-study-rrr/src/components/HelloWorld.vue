@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <h1>{{ msg }}</h1>
     <!-- 新增特性 -->
     <h1>新增特性</h1>
     <p>
@@ -20,8 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import Axios from 'axios'
+import { Component, Prop, Emit, Watch, Vue } from 'vue-property-decorator'
 
 // 类型别名
 type Feature = {
@@ -30,7 +30,7 @@ type Feature = {
 }
 
 // 交叉类型
-type FeatureSelect = Feature & { selected: boolean }
+export type FeatureSelect = Feature & { selected: boolean }
 
 interface Result<T> {
   ok: 0 | 1
@@ -49,19 +49,43 @@ function getResult<T>(): Promise<Result<T>> {
   })
 }
 
-@Component
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function Component(options: any) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return function Component(target: any): any {
+    return Vue.extend(options)
+  }
+}
+
+@Component({
+  data() {
+    return {
+      msg: 'msgs',
+    }
+  },
+})
 export default class HelloWorld extends Vue {
+  @Prop({ type: String, required: true })
+  msg!: string
+
   features: FeatureSelect[] = []
   async created(): Promise<void> {
     // this.features = (await getResult<FeatureSelect[]>()).data
-    getResult<FeatureSelect[]>().then(result=>{
+    getResult<FeatureSelect[]>().then((result) => {
       this.features = result.data
     })
-    Axios.get<FeatureSelect[]>('/api/list').then(result=>{
+    this.$axios.get<FeatureSelect[]>('/api/list').then((result) => {
       this.features = result.data
     })
   }
-  addFeature(e: KeyboardEvent): void {
+
+  @Watch('features')
+  onFeaturesChange(val: FeatureSelect[], old: FeatureSelect[]): void {
+    console.log(old.length, 'featrues change=>', val.length)
+  }
+
+  @Emit()
+  addFeature(e: KeyboardEvent): FeatureSelect {
     const input = e.target as HTMLInputElement
     const feature: FeatureSelect = {
       id: this.features.length + 1,
@@ -70,6 +94,8 @@ export default class HelloWorld extends Vue {
     }
     this.features.push(feature)
     input.value = ''
+    // 返回值作为事件参数
+    return feature
   }
 
   // 计算属性

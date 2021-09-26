@@ -111,3 +111,34 @@ interface Result<T> {
   ok: 0 | 1
   data: T
 }
+
+// 装饰器原理
+// 类装饰器表达式在运行时被当做函数调用，类的构造函数作为其唯一参数
+function log(target: Function) {
+  // target是构造函数
+  target.prototype.log = function() {
+    console.log(this.bar)
+  }
+}
+
+// 方法装饰器
+function rec(target: any, name: string, descriptor: any) {
+  // 通过descriptor.value扩展了bar方法
+  const baz = descriptor.value
+  descriptor.value = function(val: string) {
+    console.log('rum method ', name)
+    baz.call(this, val)
+  }
+}
+
+@log
+class Foo {
+  bar = 'bar'
+  @rec
+  setBar(val: string) {
+    this.bar = val
+  }
+}
+
+const foo = new Foo()
+foo.log()
