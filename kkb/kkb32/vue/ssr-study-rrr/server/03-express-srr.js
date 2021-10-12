@@ -1,5 +1,3 @@
-
-
 const express = require('express')
 const Vue = require('vue')
 const { createRenderer } = require('vue-server-renderer')
