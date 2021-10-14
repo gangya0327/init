@@ -28,10 +28,16 @@ import App from './App';
 //   <img src={logo} className='logo' alt="" style={{width: '200px', height: '200px'}} />
 // </div>
 
+import store from './store'
+import { Provider } from 'react-redux'
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // <React.StrictMode>
+  //   <App />
+  // </React.StrictMode>,
   // jsx,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
