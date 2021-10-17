@@ -5,8 +5,10 @@ import './App.css';
 // import SetStatePage from './pages/SetStatePage';
 // import HomePage from './pages/HomePage';
 // import ReduxPage from './pages/ReduxPage';
-import ReactReduxPage from './pages/ReactReduxPage';
+// import ReactReduxPage from './pages/ReactReduxPage';
 // import RouterPage from './pages/RouterPage';
+// import PureComponentPage from './pages/PureComponentPage';
+import LifeCyclePage from './pages/LifeCyclePage';
 
 function App() {
   return (
@@ -19,8 +21,10 @@ function App() {
       <SetStatePage /> */}
       {/* <HomePage /> */}
       {/* <ReduxPage /> */}
-      <ReactReduxPage />
+      {/* <ReactReduxPage /> */}
       {/* <RouterPage /> */}
+      {/* <PureComponentPage /> */}
+      <LifeCyclePage />
     </div>
   );
 }
