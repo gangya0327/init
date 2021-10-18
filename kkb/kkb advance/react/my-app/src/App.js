@@ -8,7 +8,9 @@ import './App.css';
 // import ReactReduxPage from './pages/ReactReduxPage';
 // import RouterPage from './pages/RouterPage';
 // import PureComponentPage from './pages/PureComponentPage';
-import LifeCyclePage from './pages/LifeCyclePage';
+// import LifeCyclePage from './pages/LifeCyclePage';
+import AntdPage from './pages/AntdPage'
+import 'antd/dist/antd.css'
 
 function App() {
   return (
@@ -24,7 +26,8 @@ function App() {
       {/* <ReactReduxPage /> */}
       {/* <RouterPage /> */}
       {/* <PureComponentPage /> */}
-      <LifeCyclePage />
+      {/* <LifeCyclePage /> */}
+      <AntdPage />
     </div>
   );
 }
