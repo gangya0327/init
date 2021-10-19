@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "@babel/core": "7.12.3",
+        "@babel/plugin-proposal-decorators": "^7.15.8",
         "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
         "@svgr/webpack": "5.5.0",
         "@testing-library/jest-dom": "^5.11.4",
@@ -52,6 +53,7 @@
         "postcss-preset-env": "6.7.0",
         "postcss-safe-parser": "5.0.2",
         "prompts": "2.4.0",
+        "rc-form": "^2.4.12",
         "react": "^17.0.2",
         "react-app-polyfill": "^2.0.0",
         "react-app-rewired": "^2.1.8",
@@ -151,6 +153,20 @@
         "resetMocks": true
     },
     "babel": {
+        "plugins": [
+            [
+                "@babel/plugin-proposal-decorators",
+                {
+                    "legacy": true
+                }
+            ],
+            [
+                "@babel/plugin-proposal-class-properties",
+                {
+                    "loose": true
+                }
+            ]
+        ],
         "presets": [
             "react-app"
         ]

@@ -13,3 +13,19 @@ code {
     width: 60px;
     height: 60px;
 }
+
+.dialog {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    top: calc(50vh - 200px);
+    left: calc(50vw - 200px);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.border {
+    border: 1px solid red;
+    margin: 20px;
+    padding: 20px;
+}

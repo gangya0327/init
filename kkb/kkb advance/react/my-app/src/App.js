@@ -9,8 +9,15 @@ import './App.css';
 // import RouterPage from './pages/RouterPage';
 // import PureComponentPage from './pages/PureComponentPage';
 // import LifeCyclePage from './pages/LifeCyclePage';
-import AntdPage from './pages/AntdPage'
-import 'antd/dist/antd.css'
+// import AntdPage from './pages/AntdPage'
+// import 'antd/dist/antd.css'
+// import HookPage from './pages/HookPage';
+// import CustomHookPage from './pages/CustomHookPage'
+// import UseMemoPage from './pages/UseMemoPage';
+// import UseCallbackPage from './pages/UseCallbackPage';
+// import DialogPage from './pages/DialogPage';
+// import HocPage from './pages/HocPage';
+import MyRCForm from './pages/MyRCForm';
 
 function App() {
   return (
@@ -27,7 +34,14 @@ function App() {
       {/* <RouterPage /> */}
       {/* <PureComponentPage /> */}
       {/* <LifeCyclePage /> */}
-      <AntdPage />
+      {/* <AntdPage /> */}
+      {/* <HookPage /> */}
+      {/* <CustomHookPage /> */}
+      {/* <UseMemoPage /> */}
+      {/* <UseCallbackPage /> */}
+      {/* <DialogPage /> */}
+      {/* <HocPage /> */}
+      <MyRCForm />
     </div>
   );
 }
